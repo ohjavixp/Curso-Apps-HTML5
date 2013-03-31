@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>App</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="jquery-1.8.2.min.js"></script>
+    </head>
+    <body>
+        <style>
+            .place {
+                margin: 10px;
+                background-color: cyan;
+            }            
+        </style>
+        <script>
+            $(document).ready(function() {
+                var countries = ['India', 'Nepal', 'Chile', 'Rusia', 'Peru'];
+                
+                //agregar lugares al DOM
+                for(var i=0; i<countries.length; i++) {
+                    $('#places').append('<div class="place">'+countries[i]+"</div>");
+                }      
+                
+                $('.place').bind('click touchstart', function(e) {
+                    $(this).css('background-color', 'yellow');
+                    $(this).addClass('amarillos');
+                });
+            });
+        </script>
+        <h1>Lugares</h1>
+        <div id="places"></div>
+    </body>
+</html>

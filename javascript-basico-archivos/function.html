@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>App</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <script>
+            
+            //decorado
+            function decorarText(text) {
+                var nombreDecorado = '.:::'+text+':::.';
+                
+                return nombreDecorado;
+            }
+            
+            
+            window.onload = function() {
+
+                var nombre = 'Zenva';
+
+                console.log(decorarText(nombre));
+                console.log(decorarText('Pablo'));
+                
+
+            }
+        </script>
+    </body>
+</html>

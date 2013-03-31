@@ -1,0 +1,32 @@
+<html>
+    <head>
+            <title>App</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <script>
+            window.onload = function() {
+
+                /* JSON es un estandar usado para intercambiar datos.				
+                Los objetos en Javascript se pueden escribir utilizando este formato				
+                */				
+                var usuario = {
+                    name: "Pedro",
+                    age: 99,
+                    gender: "male",
+                    getAge: function() {
+                        return this.age;
+                    }
+                };
+
+                console.log(usuario);
+
+                console.log(usuario.getAge());			
+
+                console.log(usuario.age);
+
+                console.log(JSON.stringify(usuario));				
+            }
+        </script>
+    </body>
+</html>

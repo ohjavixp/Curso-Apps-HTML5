@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>local storage</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="jquery-1.8.2.min.js"></script>
+</head> 
+<body>
+    <script>        
+        $(document).ready(function(){
+            
+            //obtener numero de visitas del almacenamiento local
+            var num = parseInt(localStorage.getItem('number_of_visits'));
+            
+            //si es mayor que cero, sumarle 1
+            if(num > 0) {
+                num += 1; 		
+            }
+            //si no, definirlo
+            else {
+                num = 1;                
+            }
+            
+            //guardar en almacenamiento local
+            localStorage.setItem('number_of_visits', num);
+            
+            //mostrar en consola
+            console.log('Number of visits:'+num);
+            
+            //limpiar el almacenamiento local
+            //localStorage.clear();
+        });
+    </script>
+</body>
+</html> 

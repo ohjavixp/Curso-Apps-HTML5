@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>App</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <script>
+            window.onload = function() {
+
+                //los "objectos" son la estructura mas usada en Javascript
+
+                /*
+                declaracion de un objecto, las siguiente formas son equivalentes:
+                var usuario = new Object();
+                var usuario = {}
+                */				
+                var usuario = {};
+
+                //propiedades del objeto
+                usuario.name = "Pedro";
+                usuario.age = 99;
+                usuario.gender = "male";
+
+                //las propiedades tambien pueden ser funciones
+                usuario.getAge = function() {
+                    return this.age;
+                }
+
+                console.log(usuario);
+
+                console.log(usuario.getAge());								
+
+                console.log(usuario.age);
+
+                console.log(JSON.stringify(usuario));
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>App</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <script>
+        window.onload = function() {
+
+            var score = 1;
+            
+            /*
+            operadores:
+                    == igual a
+                    > mayor que
+                    >= mayor o igual que
+                    < menor que
+                    <= menor o igual que
+                    != distinto a
+                
+                && Y (condicion1 && condicion2) es verdadero si AMBAS condiciones son verdaderas
+                || o (condicion1 || condicion2) es verdadero si al menos una de las condiciones es verdadera
+            */
+            
+            if(score == 100) {
+                console.log('max score');
+            }
+            else if(score <= 99 && score >= 80) {
+                console.log('good score');
+            }
+            else if(score <= 89 && score >= 50) {
+                console.log('xsdsds');
+            }
+            else {
+                console.log('game over');
+            }
+            
+            var b = 'html4';
+            var c = 'css3';
+            
+            if(b == 'html5' || c == 'css') {
+                console.log('ok');
+            }
+            else {
+                console.log('no');
+            }
+
+        }
+        </script>
+    </body>
+</html>

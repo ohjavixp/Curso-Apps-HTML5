@@ -1,0 +1,41 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>App</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="jquery-1.8.2.min.js"></script>
+</head> 
+<body> 
+
+    <script>
+        $(document).ready(function() {
+        
+            //obtener posicion del usuario
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position){
+                    
+                    console.log(position);
+                    
+                    var location=position.coords.latitude+","+position.coords.longitude;
+                    var img_url='http://maps.googleapis.com/maps/api/staticmap?center='+location+'&zoom=14&size=250x250&sensor=false';
+                    
+                    $('#map_area').html('<img src="'+img_url+'">');
+                    $('#map_area').append('<br/>tu ubicacion:'+location);
+                    
+                    
+                    
+                }, function(error) {
+                    console.log(error);
+                });                           }
+            else {
+                //el usuario no soporta geolocalizacion
+                console.log('el usuario no soporta geolocalizacion');
+            }
+        });
+        
+        
+    </script>
+    <div id="map_area"></div>
+
+</body>
+</html>

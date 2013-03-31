@@ -1,0 +1,129 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>App</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="jquery.mobile-1.1.1.min.css" />
+    <script src="jquery-1.8.2.min.js"></script>
+    <script src="jquery.mobile-1.1.1.min.js"></script>
+</head> 
+<body> 
+
+<div id="homepage" data-role="page">
+
+	<div data-role="header">
+		<h1>RicasRecipies</h1>                
+	</div><!-- /header -->
+
+	<div data-role="content">	
+                <ul id="recipies_list" data-role="listview" data-filter="true" data-filter-placeholder="Buscar receta">
+                    <li><a href="#item1">Hamburguesa con Queso</a></li>
+                    <li><a href="#item2">Torta de Manzana</a></li>
+                    <li><a href="#item3">Humitas</a></li>
+                </ul>
+	</div><!-- /content -->
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="bottom" >
+                <ul >
+                    <li><a href="#" data-icon="home">Listado</a></li>                    
+                    <li><a href="#about_page" data-icon="info">Sobre RicasRecipies</a></li>
+                </ul>
+            </div>
+        </div>
+</div><!-- /page -->
+<div id="about_page" data-role="page">
+
+	<div data-role="header">
+		<h1>RicasRecipies</h1>  
+                <a href="" data-rel="back">Volver</a>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<p>Esta app fue desarrollada como parte de un excelente curso que recomendaré a todos mis amigos.</p>		
+	</div><!-- /content -->
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="bottom" >
+                <ul >
+                    <li><a href="#homepage" data-icon="home">Listado</a></li>                    
+                    <li><a href="#" data-icon="info">Sobre RicasRecipies</a></li>
+                </ul>
+            </div>
+        </div>
+</div><!-- /page -->
+
+<div id="item1" data-role="page">
+    <div data-role="header">
+        <h1>Hamburguesas con Queso</h1>
+        <a href="#" data-rel="back">Volver</a>
+    </div>
+    <div data-role="content">
+        Ingredientes:
+                    <ul>
+                        <li>Hamburguesa</li>
+                        <li>Queso</li>
+                        <li>Pan</li>
+                        <li>Lechuga</li>
+                    </ul>
+                    Mezclar todo en la juguera y servir a gusto.
+    </div>
+    <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="bottom" >
+                <ul >
+                    <li><a href="#homepage" data-icon="home">Listado</a></li>                    
+                    <li><a href="#about_page" data-icon="info">Sobre RicasRecipies</a></li>
+                </ul>
+            </div>
+        </div>
+</div>
+<div id="item2" data-role="page">
+    <div data-role="header">
+        <h1>Torta de Manzana</h1>
+        <a href="#" data-rel="back">Volver</a>
+    </div>
+    <div data-role="content">
+        Ingredientes:
+                    <ul>
+                        <li>Hamburguesa</li>
+                        <li>Queso</li>
+                        <li>Pan</li>
+                        <li>Lechuga</li>
+                    </ul>
+                    Mezclar todo en la juguera y servir a gusto.
+    </div>
+    <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="bottom" >
+                <ul >
+                    <li><a href="#homepage" data-icon="home">Listado</a></li>                    
+                    <li><a href="#about_page" data-icon="info">Sobre RicasRecipies</a></li>
+                </ul>
+            </div>
+        </div>
+</div>
+<div id="item3" data-role="page">
+    <div data-role="header">
+        <h1>Humitas</h1>
+        <a href="#" data-rel="back">Volver</a>
+    </div>
+    <div data-role="content">
+        Ingredientes:
+                    <ul>
+                        <li>Hamburguesa</li>
+                        <li>Queso</li>
+                        <li>Pan</li>
+                        <li>Lechuga</li>
+                    </ul>
+                    Mezclar todo en la juguera y servir a gusto.
+    </div>
+    <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="bottom" >
+                <ul >
+                    <li><a href="#homepage" data-icon="home">Listado</a></li>                    
+                    <li><a href="#about_page" data-icon="info">Sobre RicasRecipies</a></li>
+                </ul>
+            </div>
+        </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>App</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="jquery.mobile-1.1.1.min.css" />
+    <script src="jquery-1.8.2.min.js"></script>
+    <script src="jquery.mobile-1.1.1.min.js"></script>
+    <script type="text/javascript" src="http://sdk.cocoafish.com/js/cocoafish-1.2.min.js"></script>
+</head> 
+<body> 
+
+<script>
+    var CommonPhotos = {};
+   
+    //se carga al cargar la pagina de login
+     $(document).ready(function() {
+         //App key (reemplazar por tu propia llave, no ocupar la mia ya que la voy a desactivar!)
+         CommonPhotos.sdk = new Cocoafish('2EGOTkfxaj42dngLMzbHCJLfDTdqP7AI');
+         
+         //registro de nuevos usuarios
+         //http://cloud.appcelerator.com/docs/api/v1/users/create
+         $('#signup_form').bind('submit', function(e) {
+            
+            var params = {
+                username: $('#new_email').val(),
+                password: $('#new_password').val(),
+                password_confirmation: $('#new_password').val()
+            }
+            CommonPhotos.sdk.sendRequest('users/create.json', 'POST', params, function(data) {
+                if(data) {
+                    if(data.meta) {
+                        if(data.meta.status == 'ok' && data.meta.code == 200 && data.meta.method_name == 'createUser') {
+                            console.log(data.meta);
+                            CommonPhotos.loggedIn = true;
+                            alert('Gracias por registrarse!');
+                            $.mobile.changePage("#photos_page");                            
+                        }
+                        else {
+                            alert(data.meta.message);
+                        }
+                    }
+                }
+                else {
+                    alert('No se puedo conectar al servidor');
+                }
+            });
+            return false; 
+         });
+         
+         //si esta loggeado, no puede ingresar a paginas de login o registro
+         $('#login_page #signup_page').bind('pagebeforeshow', function(e) {
+             closeSession();             
+         });
+         
+         //login    http://cloud.appcelerator.com/docs/api/v1/users/login
+         $('#login_button').bind('click', function(e) {
+             e.preventDefault();
+             
+             var login_details = {
+                 login: $('#email').val(),
+                 password: $('#password').val()
+             }
+             
+             CommonPhotos.sdk.sendRequest('users/login.json', 'POST', login_details, function(data) {
+                 if(data) {
+                    if(data.meta) {
+                      var meta = data.meta;
+                      if(meta.status == 'ok' && meta.code == 200 && meta.method_name == 'loginUser') {
+                        CommonPhotos.loggedIn = true;
+                        
+                        //redireccionar a pagina de fotos
+                        $.mobile.changePage("#photos_page");
+                      }
+                    }
+                  }
+             });
+         });         
+         
+         //mostrar fotos al abrir la pagina http://cloud.appcelerator.com/docs/api/v1/photos/search
+         $('#photos_page').bind('pageshow', function() {
+             $('#photos_list').html('');
+             
+             //cargar fotos   
+             CommonPhotos.sdk.sendRequest('photos/search.json', 'GET', {}, function(data) {                 
+                if(data) {
+                  if(data.meta) {
+                    var meta = data.meta;
+                    if(meta.status == 'ok' && meta.code == 200 && meta.method_name == 'searchPhotos') {
+                      var photos = data.response.photos;
+                      
+                      for(var i=0; i < photos.length; i++) {
+                          console.log(photos);
+                          if(photos[i].urls)
+                            $('#photos_list').append('<div><img src="'+photos[i].urls.small_240+'" style="margin-left:25%;"/></div>');
+                      }
+                    }
+                  }
+                }
+             });
+         });
+         
+         //cerrar sesion    http://cloud.appcelerator.com/docs/api/v1/users/logout
+         var closeSession = function() {
+             CommonPhotos.sdk.sendRequest('users/logout.json', 'GET', null, function(data) {
+                 if(data) {
+                    if(data.meta) {
+                      var meta = data.meta;
+                      if(meta.status == 'ok' && meta.code == 200 && meta.method_name == 'logoutUser') {
+                        CommonPhotos.loggedIn = false;
+                        
+                        //borrar listado de fotos
+                        $('#photos_list').html('');
+                        
+                        //usuario a login
+                        $.mobile.changePage("#login_page");
+                      }
+                    }
+                  }
+             });
+         };
+         
+         //boton cerrar sesion
+         $('.close_session').bind('click', function(e) {
+             e.preventDefault();
+             closeSession();
+         })
+         
+         //subir foto   http://cloud.appcelerator.com/docs/api/v1/photos/create
+         $('#photo_form').bind('submit', function(e) {
+            e.preventDefault();
+             
+            var photoData = {
+                photo: 'photo_file'  //the ID of file input control
+            };
+            
+            CommonPhotos.sdk.sendRequest('photos/create.json', 'POST', photoData, function (data) {
+                if(data) {
+                  if(data.meta) {
+                    var meta = data.meta;
+                    if(meta.status == 'ok' && meta.code == 200 && meta.method_name == 'createPhoto') {
+                       alert('Foto subida con éxito');                        
+                    }
+                  }
+                }
+            });
+             
+             return false;
+         });
+         
+         
+     });
+</script>
+
+<div id="login_page" data-role="page">
+    <div data-role="header">
+        <h1>CommonPhotos</h1>
+    </div>
+    <div data-role="content">
+        <form id="login_form">
+            <input type="text" name="email" id="email" value="" 
+                   placeholder="Email" required />
+            <input type="password" name="password" id="password" value="" 
+                   placeholder="Contraseña" required />
+            <a href="#" id="login_button" data-role="button" data-theme="b">Ingresar</a> 
+            <a href="#signup_page" data-role="button" data-theme="a" >Registrarse</a> 
+        </form>
+    </div>    
+</div>
+
+    <div id="signup_page" data-role="page">
+    <div data-role="header">
+        <h1>Registro</h1>
+        <a href="" data-rel="back">Volver</a>
+    </div>
+    <div data-role="content">
+        <form id="signup_form">
+            <input type="text" name="new_email" id="new_email" value="" 
+                   placeholder="Email" required />
+            <input type="password" name="new_password" id="new_password" value="" 
+                   placeholder="Contraseña" required />
+            <input type="submit" value="Crear Cuenta" data-theme="b"/>
+        </form>
+    </div>    
+</div>
+    
+<div id="photos_page" data-role="page">
+
+	<div data-role="header">
+		<h1>CommonPhotos</h1>   
+        <a href="" class="close_session">Cerrar Sesión</a>
+	</div><!-- /header -->
+	<div data-role="content">	                
+		<a href="#add_photo"  data-role="button" data-theme="b">Agregar Foto</a>	
+                
+                 <div style="margin:30px"></div>
+                
+                <div id="photos_list">
+
+                </div>
+	</div>
+</div>
+
+
+<div id="add_photo" data-role="page">
+    <div data-role="header">
+		<h1>Subir Foto</h1>    
+                <a href="" data-rel="back">Volver</a>
+	</div><!-- /header -->
+    <div data-role="content">    
+        <form id="photo_form" data-ajax="false">
+        <input type="file" name="photo_file" data-theme="b" id="photo_file" />
+        <input type="submit" value="Subir" data-theme="b">
+        </form>
+    </div>    
+</div>
+</body>
+</html>
